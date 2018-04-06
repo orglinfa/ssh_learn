@@ -74,6 +74,20 @@
         </property>
     </bean>
 
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="org.ssh.entity"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <!--
+                 一般情况下，会在项目启动的过程中，自动检查 注解的实体 和数据表，
+                 如果数据库不存在的表或者字段，会根据实体自动生成。-->
+                <property name="generateDdl" value="true"/>
+                <property name="database" value="MYSQL"/>
+                <property name="showSql" value="true"/>
+            </bean>
+        </property>
+    </bean>
 
     <!-- 配置Hibernate事务管理器 -->
     <bean id="transactionManager"
